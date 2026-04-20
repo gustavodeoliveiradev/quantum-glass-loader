@@ -45,6 +45,29 @@
     color: white;
 }
 
+/* FIX: Garantir visibilidade no tema claro */
+[data-theme="light"] .btn {
+    background: rgba(255, 255, 255, 0.7);
+    border-color: rgba(0, 0, 0, 0.15);
+    color: rgba(0, 0, 0, 0.7);
+}
+
+[data-theme="light"] .btn:hover {
+    background: rgba(255, 255, 255, 0.95);
+    border-color: var(--primary);
+    color: var(--secondary);
+    box-shadow: 0 5px 20px rgba(0, 212, 255, 0.2);
+}
+
+[data-theme="light"] .btn-primary {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+}
+
+[data-theme="light"] .btn-primary:hover {
+    color: white;
+}
+
 .btn[hidden] {
     display: none;
 }
