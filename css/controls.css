@@ -34,6 +34,10 @@
     transform: translateY(0);
 }
 
+/* ============================================
+   BOTÃO PRIMÁRIO (gradiente)
+   ============================================ */
+
 .btn-primary {
     background: linear-gradient(135deg, var(--primary), var(--secondary));
     border: none;
@@ -45,7 +49,10 @@
     color: white;
 }
 
-/* FIX: Garantir visibilidade no tema claro */
+/* ============================================
+   TEMA CLARO - Overrides específicos
+   ============================================ */
+
 [data-theme="light"] .btn {
     background: rgba(255, 255, 255, 0.7);
     border-color: rgba(0, 0, 0, 0.15);
@@ -59,13 +66,20 @@
     box-shadow: 0 5px 20px rgba(0, 212, 255, 0.2);
 }
 
-[data-theme="light"] .btn-primary {
+/* FIX: Especificidade maior para btn-primary no tema claro */
+[data-theme="light"] .btn.btn-primary {
     background: linear-gradient(135deg, var(--primary), var(--secondary));
+    border: none;
     color: white;
 }
 
-[data-theme="light"] .btn-primary:hover {
+/* FIX: Especificidade maior para hover do btn-primary no tema claro */
+[data-theme="light"] .btn.btn-primary:hover,
+[data-theme="light"] .controls .btn.btn-primary:hover {
+    background: linear-gradient(135deg, #00b8e6, #6a24a8);
+    border: none;
     color: white;
+    box-shadow: 0 5px 20px rgba(0, 212, 255, 0.3);
 }
 
 .btn[hidden] {
