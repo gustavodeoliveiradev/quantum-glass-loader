@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Quantum Glass Loader - Experiência de loading moderna">
+    <title>Quantum Glass Loader</title>
+
+    <!-- CSS Modular -->
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/glass-container.css">
+    <link rel="stylesheet" href="css/progress-ring.css">
+    <link rel="stylesheet" href="css/typography.css">
+    <link rel="stylesheet" href="css/controls.css">
+</head>
+
+<body>
+    <!-- Background -->
+    <div class="bg-mesh" aria-hidden="true"></div>
+    <canvas id="particle-canvas" aria-hidden="true"></canvas>
+
+    <!-- Loader Principal -->
+    <main class="glass-container" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"
+        aria-label="Carregando conteúdo">
+
+        <!-- Anel de Progresso -->
+        <div class="progress-ring-wrapper">
+            <svg class="progress-ring" viewBox="0 0 200 200" aria-hidden="true">
+                <defs>
+                    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#00d4ff" />
+                        <stop offset="100%" stop-color="#7b2cbf" />
+                    </linearGradient>
+                    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+                        <feGaussianBlur stdDeviation="4" result="coloredBlur" />
+                        <feMerge>
+                            <feMergeNode in="coloredBlur" />
+                            <feMergeNode in="SourceGraphic" />
+                        </feMerge>
+                    </filter>
+                </defs>
+                <circle class="ring-bg" cx="100" cy="100" r="90"></circle>
+                <circle class="ring-fill" cx="100" cy="100" r="90" id="ring-fill"></circle>
+            </svg>
+
+            <div class="ring-glow" id="ring-glow"></div>
+            <div class="progress-value" id="progress-value">0%</div>
+
+            <div class="state-icon success" id="icon-success">✓</div>
+            <div class="state-icon error" id="icon-error">✕</div>
+        </div>
+
+        <!-- Status -->
+        <div class="status-area">
+            <div class="status-step" id="status-step">Inicializando</div>
+            <div class="status-message" id="status-message">Preparando ambiente...</div>
+        </div>
+
+        <!-- Progresso Linear -->
+        <div class="linear-track" aria-hidden="true">
+            <div class="linear-bar" id="linear-bar"></div>
+        </div>
+
+        <!-- Controles -->
+        <div class="controls">
+            <button class="btn btn-secondary" id="btn-pause" type="button">Pausar</button>
+            <button class="btn btn-primary" id="btn-error" type="button">Simular Erro</button>
+            <button class="btn btn-secondary" id="btn-restart" type="button" hidden>Reiniciar</button>
+        </div>
+    </main>
+
+    <!-- Scripts Modulares -->
+    <script src="js/config.js"></script>
+    <script src="js/state.js"></script>
+    <script src="js/particles.js"></script>
+    <script src="js/ui-updater.js"></script>
+    <script src="js/progress.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>

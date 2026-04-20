@@ -1,0 +1,88 @@
+/* ============================================
+   BASE - Reset, Variáveis e Utilitários
+   ============================================ */
+
+:root {
+    /* Cores */
+    --primary: #00d4ff;
+    --secondary: #7b2cbf;
+    --success: #00ff88;
+    --error: #ff4757;
+    --bg: #0a0a0f;
+    
+    /* Glass */
+    --glass-bg: rgba(255, 255, 255, 0.03);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --glass-highlight: rgba(255, 255, 255, 0.2);
+    
+    /* Sombras */
+    --shadow-glow: rgba(0, 212, 255, 0.15);
+    --shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.37);
+    
+    /* Tipografia */
+    --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    
+    /* Animações */
+    --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font);
+    background: var(--bg);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Background Mesh */
+.bg-mesh {
+    position: fixed;
+    inset: -50%;
+    width: 200%;
+    height: 200%;
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(0, 212, 255, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(123, 44, 191, 0.15) 0%, transparent 50%);
+    animation: mesh-rotate 20s linear infinite;
+    z-index: -1;
+}
+
+@keyframes mesh-rotate {
+    to { transform: rotate(360deg); }
+}
+
+/* Canvas Partículas */
+#particle-canvas {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 100;
+}
+
+/* Utilitários */
+.hidden { display: none !important; }
+.sr-only { 
+    position: absolute; 
+    width: 1px; 
+    height: 1px; 
+    padding: 0; 
+    margin: -1px; 
+    overflow: hidden; 
+    clip: rect(0, 0, 0, 0); 
+    border: 0; 
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    * { animation-duration: 0.01ms !important; }
+}

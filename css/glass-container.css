@@ -1,0 +1,66 @@
+/* ============================================
+   GLASS CONTAINER - Efeito vidro principal
+   ============================================ */
+
+.glass-container {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    padding: 48px;
+    box-shadow: 
+        var(--shadow-soft),
+        inset 0 1px 0 var(--glass-highlight),
+        0 0 60px var(--shadow-glow);
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+    min-width: 340px;
+    position: relative;
+}
+
+/* Linha de destaque no topo */
+.glass-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 20%;
+    right: 20%;
+    height: 1px;
+    background: linear-gradient(90deg, 
+        transparent, 
+        rgba(255, 255, 255, 0.4), 
+        transparent
+    );
+    border-radius: 1px;
+}
+
+/* Estados */
+.glass-container.success {
+    box-shadow: 
+        var(--shadow-soft),
+        inset 0 1px 0 var(--glass-highlight),
+        0 0 100px rgba(0, 255, 136, 0.3);
+}
+
+.glass-container.error {
+    animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+    25% { transform: translateX(-8px); }
+    75% { transform: translateX(8px); }
+}
+
+/* Responsivo */
+@media (max-width: 480px) {
+    .glass-container {
+        margin: 16px;
+        padding: 32px;
+        min-width: auto;
+        width: calc(100% - 32px);
+        gap: 24px;
+    }
+}

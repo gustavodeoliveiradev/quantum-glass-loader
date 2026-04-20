@@ -1,0 +1,63 @@
+/* ============================================
+   CONTROLS - Botões e Interações
+   ============================================ */
+
+.controls {
+    display: flex;
+    gap: 12px;
+    margin-top: 4px;
+}
+
+.btn {
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: 1px solid var(--glass-border);
+    background: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.25s var(--ease-smooth);
+    font-family: inherit;
+}
+
+.btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: var(--primary);
+    transform: translateY(-2px);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    border: none;
+    color: white;
+}
+
+.btn-primary:hover {
+    box-shadow: 0 5px 20px rgba(0, 212, 255, 0.3);
+}
+
+.btn[hidden] {
+    display: none;
+}
+
+/* Foco visível para acessibilidade */
+.btn:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    .controls {
+        width: 100%;
+    }
+    .btn {
+        flex: 1;
+        padding: 12px 16px;
+    }
+}

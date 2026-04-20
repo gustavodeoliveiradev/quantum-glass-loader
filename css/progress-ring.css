@@ -1,0 +1,101 @@
+/* ============================================
+   PROGRESS RING - SVG e Animações Circulares
+   ============================================ */
+
+.progress-ring-wrapper {
+    position: relative;
+    width: 180px;
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.progress-ring {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+    overflow: visible; /* Permite glow sair do SVG */
+}
+
+.ring-bg {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.08);
+    stroke-width: 8;
+}
+
+.ring-fill {
+    fill: none;
+    stroke: url(#gradient);
+    stroke-width: 8;
+    stroke-linecap: round;
+    stroke-dasharray: 565.48;
+    stroke-dashoffset: 565.48;
+    transition: stroke-dashoffset 0.4s var(--ease-smooth);
+    filter: url(#glow); /* Glow via SVG filter (não corta) */
+}
+
+/* Glow animado no centro */
+.ring-glow {
+    position: absolute;
+    inset: 20%;
+    border-radius: 50%;
+    background: radial-gradient(circle, 
+        rgba(0, 212, 255, 0.15) 0%, 
+        transparent 70%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.ring-glow.active {
+    opacity: 1;
+}
+
+@keyframes pulse-glow {
+    50% { transform: scale(1.1); opacity: 0.25; }
+}
+
+/* Valor Central */
+.progress-value {
+    position: absolute;
+    font-size: 36px;
+    font-weight: 700;
+    color: white;
+    font-variant-numeric: tabular-nums;
+    transition: transform 0.2s var(--ease-bounce);
+    text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+}
+
+.progress-value.bounce {
+    transform: scale(1.15);
+}
+
+/* Ícones de Estado */
+.state-icon {
+    position: absolute;
+    font-size: 48px;
+    opacity: 0;
+    transform: scale(0);
+    transition: all 0.4s var(--ease-bounce);
+    pointer-events: none;
+}
+
+.state-icon.show {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.state-icon.success { color: var(--success); }
+.state-icon.error { color: var(--error); }
+
+/* Mobile */
+@media (max-width: 480px) {
+    .progress-ring-wrapper {
+        width: 150px;
+        height: 150px;
+    }
+    .progress-value { font-size: 28px; }
+}
