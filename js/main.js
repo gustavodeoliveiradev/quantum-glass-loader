@@ -3,7 +3,10 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Inicializar sistemas
+    // Inicializar tema primeiro (antes de qualquer render)
+    ThemeManager.init();
+    
+    // Inicializar sistemas do loader
     UI.init();
     const particles = new ParticleSystem();
     Progress.init(particles);
@@ -21,11 +24,15 @@ document.addEventListener('DOMContentLoaded', () => {
         if ((e.key === 'r' || e.key === 'R') && (State.isComplete || State.isError)) {
             Progress.restart();
         }
+        // Atalho para tema: T
+        if (e.key === 't' || e.key === 'T') {
+            ThemeManager.toggle();
+        }
     });
     
     // Iniciar loading
     State.target = 100;
     setTimeout(() => Progress.loop(), 500);
     
-    console.log('🚀 Quantum Glass Loader iniciado');
+    console.log('🚀 Quantum Glass Loader - Day 2: Theme System Active');
 });

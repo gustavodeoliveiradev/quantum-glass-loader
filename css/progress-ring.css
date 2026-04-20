@@ -15,13 +15,14 @@
     width: 100%;
     height: 100%;
     transform: rotate(-90deg);
-    overflow: visible; /* Permite glow sair do SVG */
+    overflow: visible;
 }
 
 .ring-bg {
     fill: none;
-    stroke: rgba(255, 255, 255, 0.08);
+    stroke: var(--glass-border);
     stroke-width: 8;
+    transition: stroke 0.5s var(--ease-smooth);
 }
 
 .ring-fill {
@@ -32,7 +33,7 @@
     stroke-dasharray: 565.48;
     stroke-dashoffset: 565.48;
     transition: stroke-dashoffset 0.4s var(--ease-smooth);
-    filter: url(#glow); /* Glow via SVG filter (não corta) */
+    filter: url(#glow);
 }
 
 /* Glow animado no centro */
@@ -63,10 +64,10 @@
     position: absolute;
     font-size: 36px;
     font-weight: 700;
-    color: white;
+    color: var(--text-primary);
     font-variant-numeric: tabular-nums;
-    transition: transform 0.2s var(--ease-bounce);
-    text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+    transition: transform 0.2s var(--ease-bounce), color 0.5s var(--ease-smooth);
+    text-shadow: 0 0 20px var(--shadow-glow);
 }
 
 .progress-value.bounce {

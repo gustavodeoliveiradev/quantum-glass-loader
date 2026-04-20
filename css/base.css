@@ -1,23 +1,37 @@
 /* ============================================
-   BASE - Reset, Variáveis e Utilitários
+   BASE - Reset, Variáveis de Tema e Utilitários
    ============================================ */
 
+/* Tema Dark (padrão) */
 :root {
-    /* Cores */
+    /* Cores principais */
     --primary: #00d4ff;
     --secondary: #7b2cbf;
     --success: #00ff88;
     --error: #ff4757;
+    
+    /* Background */
     --bg: #0a0a0f;
+    --bg-mesh-1: rgba(0, 212, 255, 0.15);
+    --bg-mesh-2: rgba(123, 44, 191, 0.15);
     
     /* Glass */
     --glass-bg: rgba(255, 255, 255, 0.03);
     --glass-border: rgba(255, 255, 255, 0.1);
     --glass-highlight: rgba(255, 255, 255, 0.2);
     
+    /* Texto */
+    --text-primary: rgba(255, 255, 255, 0.9);
+    --text-secondary: rgba(255, 255, 255, 0.5);
+    --text-muted: rgba(255, 255, 255, 0.6);
+    
     /* Sombras */
     --shadow-glow: rgba(0, 212, 255, 0.15);
     --shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.37);
+    
+    /* Toggle */
+    --toggle-bg: rgba(255, 255, 255, 0.1);
+    --toggle-icon: #ffd700;
     
     /* Tipografia */
     --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -25,12 +39,43 @@
     /* Animações */
     --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
     --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    
+    /* Transição de tema */
+    --theme-transition: background-color 0.5s var(--ease-smooth),
+                        color 0.5s var(--ease-smooth),
+                        border-color 0.5s var(--ease-smooth),
+                        box-shadow 0.5s var(--ease-smooth);
+}
+
+/* Tema Light */
+[data-theme="light"] {
+    --bg: #f0f2f5;
+    --bg-mesh-1: rgba(0, 212, 255, 0.08);
+    --bg-mesh-2: rgba(123, 44, 191, 0.08);
+    
+    --glass-bg: rgba(255, 255, 255, 0.6);
+    --glass-border: rgba(0, 0, 0, 0.08);
+    --glass-highlight: rgba(255, 255, 255, 0.8);
+    
+    --text-primary: rgba(0, 0, 0, 0.9);
+    --text-secondary: rgba(0, 0, 0, 0.4);
+    --text-muted: rgba(0, 0, 0, 0.5);
+    
+    --shadow-glow: rgba(0, 212, 255, 0.2);
+    --shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.1);
+    
+    --toggle-bg: rgba(0, 0, 0, 0.1);
+    --toggle-icon: #7b2cbf;
 }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+html {
+    transition: var(--theme-transition);
 }
 
 body {
@@ -42,6 +87,7 @@ body {
     justify-content: center;
     overflow: hidden;
     position: relative;
+    transition: var(--theme-transition);
 }
 
 /* Background Mesh */
@@ -51,10 +97,11 @@ body {
     width: 200%;
     height: 200%;
     background: 
-        radial-gradient(circle at 20% 80%, rgba(0, 212, 255, 0.15) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(123, 44, 191, 0.15) 0%, transparent 50%);
+        radial-gradient(circle at 20% 80%, var(--bg-mesh-1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, var(--bg-mesh-2) 0%, transparent 50%);
     animation: mesh-rotate 20s linear infinite;
     z-index: -1;
+    transition: var(--theme-transition);
 }
 
 @keyframes mesh-rotate {
@@ -71,16 +118,6 @@ body {
 
 /* Utilitários */
 .hidden { display: none !important; }
-.sr-only { 
-    position: absolute; 
-    width: 1px; 
-    height: 1px; 
-    padding: 0; 
-    margin: -1px; 
-    overflow: hidden; 
-    clip: rect(0, 0, 0, 0); 
-    border: 0; 
-}
 
 /* Reduced Motion */
 @media (prefers-reduced-motion: reduce) {

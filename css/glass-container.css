@@ -1,5 +1,5 @@
 /* ============================================
-   GLASS CONTAINER - Efeito vidro principal
+   GLASS CONTAINER - Efeito vidro + estados
    ============================================ */
 
 .glass-container {
@@ -19,6 +19,7 @@
     gap: 28px;
     min-width: 340px;
     position: relative;
+    transition: var(--theme-transition);
 }
 
 /* Linha de destaque no topo */
@@ -31,10 +32,11 @@
     height: 1px;
     background: linear-gradient(90deg, 
         transparent, 
-        rgba(255, 255, 255, 0.4), 
+        var(--glass-highlight), 
         transparent
     );
     border-radius: 1px;
+    transition: var(--theme-transition);
 }
 
 /* Estados */
