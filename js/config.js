@@ -8,15 +8,15 @@ const CONFIG = {
     
     // Etapas do loading com mensagens
     STEPS: [
-        { at: 0, label: 'Inicializando', msg: 'Preparando ambiente...' },
-        { at: 15, label: 'Conectando', msg: 'Estabelecendo conexão segura...' },
-        { at: 35, label: 'Processando', msg: 'Otimizando recursos visuais...' },
-        { at: 60, label: 'Sincronizando', msg: 'Sincronizando dados...' },
-        { at: 80, label: 'Finalizando', msg: 'Aplicando configurações...' },
-        { at: 100, label: 'Concluído', msg: 'Pronto! Bem-vindo.' }
+        { at: 0, label: 'Aguardando', msg: 'Arraste um arquivo para começar' },
+        { at: 1, label: 'Enviando', msg: 'Iniciando upload...' },
+        { at: 25, label: 'Processando', msg: 'Enviando dados...' },
+        { at: 50, label: 'Sincronizando', msg: 'Sincronizando com servidor...' },
+        { at: 75, label: 'Finalizando', msg: 'Quase lá...' },
+        { at: 100, label: 'Concluído', msg: 'Upload completo!' }
     ],
     
-    // Velocidades para simulação realista (não-linear)
+    // Velocidades para simulação realista (fallback)
     SPEEDS: [0.8, 0.4, 1.2, 0.6, 0.9],
     
     // Seletores DOM
@@ -33,5 +33,11 @@ const CONFIG = {
         btnPause: '#btn-pause',
         btnError: '#btn-error',
         btnRestart: '#btn-restart'
+    },
+    
+    // Upload
+    UPLOAD: {
+        MAX_SIZE: 10 * 1024 * 1024,
+        ENDPOINT: 'https://httpbin.org/post'
     }
 };

@@ -3,18 +3,29 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Inicializar tema primeiro (antes de qualquer render)
+    // 1. Disclaimer de segurança primeiro
+    Disclaimer.render();
+    Disclaimer.init();
+    
+    // 2. Tema
     ThemeManager.init();
     
-    // Inicializar sistemas do loader
+    // 3. Sistemas do loader
     UI.init();
     const particles = new ParticleSystem();
     Progress.init(particles);
+    UploadManager.init();
     
     // Event Listeners
     UI.elements.btnPause.addEventListener('click', () => Progress.togglePause());
     UI.elements.btnError.addEventListener('click', () => Progress.simulateError());
-    UI.elements.btnRestart.addEventListener('click', () => Progress.restart());
+    UI.elements.btnRestart.addEventListener('click', () => {
+        if (UploadManager.file) {
+            UploadManager.reset();
+        } else {
+            Progress.restart();
+        }
+    });
     
     // Teclado
     document.addEventListener('keydown', (e) => {
@@ -22,17 +33,16 @@ document.addEventListener('DOMContentLoaded', () => {
             Progress.togglePause();
         }
         if ((e.key === 'r' || e.key === 'R') && (State.isComplete || State.isError)) {
-            Progress.restart();
+            if (UploadManager.file) {
+                UploadManager.reset();
+            } else {
+                Progress.restart();
+            }
         }
-        // Atalho para tema: T
         if (e.key === 't' || e.key === 'T') {
             ThemeManager.toggle();
         }
     });
     
-    // Iniciar loading
-    State.target = 100;
-    setTimeout(() => Progress.loop(), 500);
-    
-    console.log('🚀 Quantum Glass Loader - Day 2: Theme System Active');
+    console.log('🚀 Quantum Glass Loader - Day 3: Real Upload Active');
 });
