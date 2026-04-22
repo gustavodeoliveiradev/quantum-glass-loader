@@ -4,12 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Quantum Glass Loader - Upload com progresso real">
+    <meta name="description" content="Quantum Glass Loader - Upload com progresso real e áudio imersivo">
     <title>Quantum Glass Loader</title>
 
     <!-- CSS Modular -->
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/theme-toggle.css">
+    <link rel="stylesheet" href="css/audio-controls.css">
     <link rel="stylesheet" href="css/glass-container.css">
     <link rel="stylesheet" href="css/progress-ring.css">
     <link rel="stylesheet" href="css/typography.css">
@@ -23,6 +24,20 @@
     <!-- Background -->
     <div class="bg-mesh" aria-hidden="true"></div>
     <canvas id="particle-canvas" aria-hidden="true"></canvas>
+
+    <!-- Audio Controls -->
+    <div class="audio-controls" id="audio-controls">
+        <button class="audio-toggle muted" id="audio-toggle" title="Ativar som">
+            🔇
+        </button>
+        <div class="audio-visualizer" id="audio-visualizer">
+            <div class="audio-bar" style="height: 4px;"></div>
+            <div class="audio-bar" style="height: 8px;"></div>
+            <div class="audio-bar" style="height: 6px;"></div>
+            <div class="audio-bar" style="height: 10px;"></div>
+            <div class="audio-bar" style="height: 5px;"></div>
+        </div>
+    </div>
 
     <!-- Disclaimer (renderizado via JS) -->
 
@@ -60,7 +75,7 @@
         <!-- Status -->
         <div class="status-area">
             <div class="status-step" id="status-step">Inicializando</div>
-            <div class="status-message" id="status-message">Arraste um arquivo para começar</div>
+            <div class="status-message" id="status-message">Clique no 🔇 para ativar o som</div>
         </div>
 
         <!-- Progresso Linear -->
@@ -84,6 +99,8 @@
     <script src="js/state.js"></script>
     <script src="js/theme-manager.js"></script>
     <script src="js/disclaimer.js"></script>
+    <script src="js/audio-engine.js"></script>
+    <script src="js/animation-engine.js"></script>
     <script src="js/particles.js"></script>
     <script src="js/api-client.js"></script>
     <script src="js/ui-updater.js"></script>

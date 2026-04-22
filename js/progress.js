@@ -4,68 +4,82 @@
 
 const Progress = {
     particles: null,
-
+    lastSoundPercent: 0,
+    
     init(particleSystem) {
         this.particles = particleSystem;
     },
-
+    
     getSpeed(percent) {
         const idx = Math.min(Math.floor(percent / 20), CONFIG.SPEEDS.length - 1);
         return CONFIG.SPEEDS[idx] || 0.5;
     },
-
+    
     getCurrentStep(percent) {
         for (let i = CONFIG.STEPS.length - 1; i >= 0; i--) {
             if (percent >= CONFIG.STEPS[i].at) return i;
         }
         return 0;
     },
-
+    
     loop() {
         if (State.isPaused || State.isError || State.isComplete) return;
-
+        
         const remaining = State.target - State.current;
         const speed = this.getSpeed(State.current) * (0.5 + Math.random() * 0.5);
-
+        
         if (remaining > 0) {
             State.current = Math.min(State.current + speed, State.target);
-
+            
             // Atualizar UI
             UI.updateProgress(State.current);
-
-            // Verificar mudança de etapa - só atualiza se mudou de verdade
+            
+            // Som de progresso (a cada 5%)
+            if (Math.floor(State.current / 5) > this.lastSoundPercent) {
+                this.lastSoundPercent = Math.floor(State.current / 5);
+                AudioEngine.playProgress(State.current);
+                AnimationEngine.pulseOnBeat(State.current / 200);
+            }
+            
+            // Glow dinâmico
+            AnimationEngine.updateGlowIntensity(State.current);
+            
+            // Verificar mudança de etapa
             const newStep = this.getCurrentStep(State.current);
             if (newStep !== State.stepIndex && newStep > State.stepIndex) {
                 State.stepIndex = newStep;
                 UI.updateStep(newStep);
             }
-
+            
             // Completou?
             if (State.current >= 100) {
                 this.complete();
                 return;
             }
         }
-
+        
         State.animId = requestAnimationFrame(() => this.loop());
     },
-
+    
     complete() {
         State.setComplete();
         UI.updateProgress(100);
-
-        // Garantir que mostramos a última etapa
+        
+        // Som de sucesso
+        AudioEngine.playSuccess();
+        
+        // Animações de sucesso
+        AnimationEngine.updateGlowIntensity(100);
+        
         const lastStep = CONFIG.STEPS.length - 1;
         if (State.stepIndex !== lastStep) {
             State.stepIndex = lastStep;
             UI.updateStep(lastStep);
         }
-
-        // Pequeno delay para a mensagem final aparecer antes do sucesso
+        
         setTimeout(() => {
             UI.showSuccess();
-
-            // Confete!
+            
             const rect = UI.elements.container.getBoundingClientRect();
             this.particles.explode(
                 rect.left + rect.width / 2,
@@ -73,34 +87,39 @@ const Progress = {
             );
         }, 800);
     },
-
+    
     simulateError() {
         State.setError();
+        AudioEngine.playError();
+        AnimationEngine.shakeError();
         UI.showError();
     },
-
+    
     togglePause() {
         const isPaused = State.pause();
         UI.elements.btnPause.textContent = isPaused ? 'Continuar' : 'Pausar';
-
+        
         if (isPaused) {
             UI.cancelTypewriter();
             UI.elements.message.textContent = 'Pausado';
             UI.elements.message.classList.remove('typing');
+            AnimationEngine.breathe(false);
         } else {
             UI.updateStep(State.stepIndex);
+            AnimationEngine.breathe(true);
             this.loop();
         }
-
+        
         return isPaused;
     },
-
+    
     restart() {
         State.reset();
+        this.lastSoundPercent = 0;
         UI.reset();
+        AnimationEngine.breathe(true);
         State.target = 100;
-
-        // Pequeno delay para animação de entrada
+        
         setTimeout(() => this.loop(), 300);
     }
 };
