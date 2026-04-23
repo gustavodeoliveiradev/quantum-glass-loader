@@ -60,3 +60,27 @@
     opacity: 0;
     cursor: pointer;
 }
+
+/* ============================================
+   UPLOAD ZONE - FIXES MOBILE
+   ============================================ */
+
+/* Reduzir padding no mobile para caber tudo */
+@media (max-width: 480px) {
+    .upload-zone {
+        padding: 20px 16px;
+    }
+
+    .upload-icon {
+        font-size: 36px;
+        margin-bottom: 8px;
+    }
+
+    .upload-text {
+        font-size: 14px;
+    }
+
+    .upload-hint {
+        font-size: 11px;
+    }
+}

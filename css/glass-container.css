@@ -56,13 +56,33 @@
     75% { transform: translateX(8px); }
 }
 
-/* Responsivo */
+/* ============================================
+   GLASS CONTAINER - FIXES MOBILE
+   ============================================ */
+
+/* Garantir que o container não ultrapasse a tela */
 @media (max-width: 480px) {
     .glass-container {
-        margin: 16px;
-        padding: 32px;
+        margin: 8px;
+        padding: 20px 16px;
         min-width: auto;
-        width: calc(100% - 32px);
-        gap: 24px;
+        width: calc(100% - 16px);
+        gap: 16px;
+        max-height: 95vh;
+        overflow-y: auto;
+    }
+
+    /* Esconder scrollbar mas manter funcionalidade */
+    .glass-container::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    .glass-container::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .glass-container::-webkit-scrollbar-thumb {
+        background: var(--glass-border);
+        border-radius: 2px;
     }
 }

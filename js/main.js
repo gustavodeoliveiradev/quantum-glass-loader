@@ -1,46 +1,39 @@
 /**
  * MAIN - Orquestrador e inicialização
- * 
- * ORDEM DE INICIALIZAÇÃO (crítico para não quebrar):
- * 1. DOM elements (UI.init)
- * 2. Sistemas que dependem de DOM (ThemeManager, AnimationEngine)
- * 3. Sistemas independentes (AudioEngine, Particles)
- * 4. PerformanceMonitor (por último, não interfere em nada)
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. UI PRIMEIRO - todos os elementos DOM devem existir
+    // 1. UI PRIMEIRO
     UI.init();
 
-    // 2. Tema (depende de DOM)
+    // 2. Sistemas que dependem de DOM
     ThemeManager.init();
-
-    // 3. Animações (depende de DOM)
     AnimationEngine.init();
 
-    // 4. Partículas (independente)
+    // 3. Partículas e Progress
     const particles = new ParticleSystem();
-
-    // 5. Progress (depende de particles)
     Progress.init(particles);
 
-    // 6. Upload (depende de UI e Progress)
+    // 4. Upload
     UploadManager.init();
 
-    // 7. Áudio (independente, mas aguarda interação)
+    // 5. Áudio
     AudioEngine.init();
 
-    // 8. Disclaimer (por último, não bloqueia nada)
+    // 6. Disclaimer
     Disclaimer.render();
     Disclaimer.init();
 
-    // 9. Performance Monitor (não interfere no funcionamento)
+    // 7. Performance Monitor (SEMPRE por último, não bloqueia nada)
     if (typeof PerformanceMonitor !== 'undefined') {
         try {
             PerformanceMonitor.init();
+            console.log('⚡ Performance Monitor ativo');
         } catch (e) {
-            console.warn('PerformanceMonitor não disponível:', e);
+            console.warn('PerformanceMonitor indisponível:', e);
         }
+    } else {
+        console.warn('PerformanceMonitor não carregado');
     }
 
     // Event Listeners
@@ -85,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Inicializar áudio na primeira interação do usuário
+    // Inicializar áudio na primeira interação
     const initAudioOnInteraction = () => {
         AudioEngine.resume();
         AudioEngine.init();
