@@ -90,6 +90,25 @@ body {
     transition: var(--theme-transition);
 }
 
+/* Skip Link para acessibilidade */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: var(--primary);
+    color: white;
+    padding: 8px 16px;
+    text-decoration: none;
+    font-weight: 500;
+    border-radius: 0 0 8px 0;
+    z-index: 100;
+    transition: top 0.3s ease;
+}
+
+.skip-link:focus {
+    top: 0;
+}
+
 /* Background Mesh */
 .bg-mesh {
     position: fixed;
@@ -122,4 +141,27 @@ body {
 /* Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
     * { animation-duration: 0.01ms !important; }
+}
+
+
+/* ============================================
+   MOBILE FIXES - Remover seleção azul e highlight
+   ============================================ */
+
+/* Remove highlight azul ao tocar em elementos clicáveis */
+* {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+}
+
+/* Evita seleção de texto em elementos interativos */
+.btn, .audio-toggle, .toggle-track, .file-remove, .perf-toggle, .upload-zone {
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+/* Permite seleção apenas em texto legível */
+.status-message, .upload-text, .upload-hint, .disclaimer-text {
+    user-select: text;
+    -webkit-user-select: text;
 }
