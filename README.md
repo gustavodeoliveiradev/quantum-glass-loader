@@ -12,6 +12,7 @@
   <img src="https://img.shields.io/badge/performance-GPU%20Accelerated-00ff88" alt="Performance">
   <img src="https://img.shields.io/badge/upload-real%20%7C%20simulated-ff6b6b" alt="Upload">
   <img src="https://img.shields.io/badge/audio-Web%20Audio%20API-ff9f43" alt="Audio">
+  <img src="https://img.shields.io/badge/monitoring-Web%20Vitals-9b59b6" alt="Monitoring">
 </p>
 
 ---
@@ -23,7 +24,8 @@
 | ![Dark Theme](assets/preview-dark.png) | ![Light Theme](assets/preview-light.png) |
 
 > 🌓 **Toggle de tema** no canto superior direito ou pressione `T`  
-> 🔊 **Ative o som** clicando no 🔇 no canto superior esquerdo
+> 🔊 **Ative o som** clicando no 🔇 no canto superior esquerdo  
+> ⚡ **Métricas de performance** clicando no ⚡ no canto inferior direito
 
 ---
 
@@ -34,11 +36,13 @@
 - **📊 Progresso Realista** — Simulação de rede com velocidades variáveis (não é linear!)
 - **📤 Upload Real** — Arraste arquivos ou selecione para upload com progresso em bytes
 - **🎵 Áudio Imersivo** — Web Audio API com pitch progressivo, arpeggio de sucesso, e visualizador
+- **⚡ Web Vitals** — Monitoramento em tempo real de FCP, LCP, CLS, TTFB, FID
 - **🛡️ Segurança** — Disclaimer de privacidade, validação de arquivos, sanitização de dados
 - **🎯 Micro-interações** — Pausar, simular erro, reiniciar com animações suaves
 - **🎉 Partículas** — Explosão de confete ao completar com física realista
-- **⌨️ Acessibilidade** — Navegação por teclado, ARIA labels, `prefers-reduced-motion`
-- **📱 Responsivo** — Adaptativo para mobile e desktop
+- **⌨️ Acessibilidade** — Navegação por teclado, ARIA labels, `prefers-reduced-motion`, skip links
+- **📱 Responsivo** — Adaptativo para mobile e desktop, sem highlight azul no toque
+- **🔧 PWA** — Service Worker para cache, manifest.json para instalação
 
 ---
 
@@ -51,6 +55,7 @@
 | Reiniciar | Botão "Reiniciar" | `R` |
 | Alternar Tema | Toggle no canto superior direito | `T` |
 | Alternar Som | Botão 🔇/🔊 no canto superior esquerdo | `M` |
+| Ver Performance | Botão ⚡ no canto inferior direito | — |
 | Selecionar Arquivo | Click na área de upload | — |
 | Cancelar Upload | Botão "Reiniciar" durante upload | `R` |
 
@@ -60,9 +65,10 @@
 
 ```
 quantum-loader/
-├── index.html              # Estrutura semântica
+├── index.html              # Estrutura semântica + SEO meta tags
+├── manifest.json           # PWA manifest
 ├── css/
-│   ├── base.css            # Variáveis de tema, reset, utilitários
+│   ├── base.css            # Variáveis de tema, reset, utilitários, mobile fixes
 │   ├── theme-toggle.css    # Switch dark/light animado
 │   ├── audio-controls.css  # Toggle de som + visualizador
 │   ├── glass-container.css # Efeito vidro + estados visuais
@@ -71,7 +77,8 @@ quantum-loader/
 │   ├── controls.css        # Botões + interações
 │   ├── upload-zone.css     # Área de drag & drop
 │   ├── file-list.css       # Lista de arquivos
-│   └── disclaimer.css      # Modal de segurança
+│   ├── disclaimer.css      # Modal de segurança
+│   └── performance-panel.css # Painel de métricas Web Vitals
 └── js/
     ├── config.js           # Constantes centralizadas
     ├── state.js            # Gerenciamento de estado
@@ -84,6 +91,8 @@ quantum-loader/
     ├── ui-updater.js       # Atualizações DOM centralizadas
     ├── progress.js         # Lógica de animação não-linear
     ├── upload-manager.js   # Gerenciamento de upload
+    ├── performance-monitor.js # Monitoramento Web Vitals
+    ├── service-worker.js   # Cache de assets + offline support
     └── main.js             # Orquestrador
 ```
 
@@ -106,6 +115,11 @@ quantum-loader/
 2. O pitch sobe conforme o progresso aumenta
 3. Ao completar, ouça o arpeggio de sucesso (C-E-G-C)
 
+### Performance
+1. Clique no ⚡ no canto inferior direito
+2. Veja métricas Web Vitals em tempo real (FCP, LCP, CLS, TTFB, FID)
+3. Cores indicam: 🟢 bom / 🟡 melhorar / 🔴 ruim
+
 ### Local
 ```bash
 git clone https://github.com/gustavodeoliveiradev/quantum-glass-loader.git
@@ -127,8 +141,8 @@ npx serve .
 | **Dia 2** | Tema Dark/Light toggle + Persistência + Detecção SO | ✅ Completo | `feat: add dark/light theme toggle system` |
 | **Dia 3** | Upload Real com Drag & Drop + Segurança | ✅ Completo | `feat: add real file upload with drag & drop and security disclaimer` |
 | **Dia 4** | Web Audio API + Animações Avançadas | ✅ Completo | `feat: add Web Audio API and advanced animations` |
-| **Dia 5** | Testes de performance (Lighthouse) | 🔜 Em breve | — |
-| **Dia 6** | PWA + Offline support | 🔜 Em breve | — |
+| **Dia 5** | Performance + Web Vitals + PWA + Mobile Fixes | ✅ Completo | `feat: add performance monitor with Web Vitals metrics` |
+| **Dia 6** | PWA completo + Offline support + Install prompt | 🔜 Em breve | — |
 | **Dia 7** | Documentação final + Polish + Deploy | 🔜 Em breve | — |
 
 > 🔄 **Atualizações diárias durante a semana!** Cada dia terá um novo commit com features e melhorias.
@@ -144,6 +158,8 @@ npx serve .
 - **Canvas API** — Sistema de partículas com física
 - **XMLHttpRequest** — Upload com monitoramento de progresso real
 - **Web Audio API** — Osciladores, envelopes, analisador de frequência
+- **Performance API** — PerformanceObserver, Web Vitals
+- **Service Worker** — Cache de assets, offline support
 
 ---
 
@@ -172,6 +188,8 @@ Este projeto foi criado para praticar:
 - ✅ Validação e sanitização de dados
 - ✅ Web Audio API para feedback sonoro
 - ✅ Sincronização áudio-visual em tempo real
+- ✅ Monitoramento de performance (Web Vitals)
+- ✅ Progressive Web App (PWA)
 
 ---
 
