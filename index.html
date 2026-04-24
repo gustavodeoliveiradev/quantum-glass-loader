@@ -3,37 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <!-- SEO -->
     <title>Quantum Glass Loader — Loader Moderno com Glassmorphism e Upload Real</title>
     <meta name="description" content="Loader moderno e interativo com glassmorphism, progressão não-linear, upload real com drag & drop, áudio imersivo e tema dark/light. Projeto de 7 dias de aprendizado frontend.">
-    <meta name="keywords" content="loader, glassmorphism, progress bar, upload, drag drop, web audio, theme toggle, frontend">
+    <meta name="keywords" content="loader, glassmorphism, progress bar, upload, drag drop, web audio, theme toggle, frontend, pwa">
     <meta name="author" content="Gustavo de Oliveira">
     <meta name="robots" content="index, follow">
-    
+
     <!-- Open Graph -->
     <meta property="og:title" content="Quantum Glass Loader">
     <meta property="og:description" content="Loader moderno com glassmorphism, upload real e áudio imersivo">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://gustavodeoliveiradev.github.io/quantum-glass-loader/">
     <meta property="og:image" content="https://gustavodeoliveiradev.github.io/quantum-glass-loader/assets/preview-dark.png">
-    
+
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Quantum Glass Loader">
     <meta name="twitter:description" content="Loader moderno com glassmorphism, upload real e áudio imersivo">
     <meta name="twitter:image" content="https://gustavodeoliveiradev.github.io/quantum-glass-loader/assets/preview-dark.png">
-    
+
     <!-- PWA -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#00d4ff">
+    <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    
-    <!-- Preconnect para API externa -->
+    <meta name="apple-mobile-web-app-title" content="Quantum Loader">
+
+    <!-- Preconnect -->
     <link rel="preconnect" href="https://httpbin.org">
     <link rel="dns-prefetch" href="https://httpbin.org">
-    
+
     <!-- CSS Modular -->
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/theme-toggle.css">
@@ -46,6 +48,8 @@
     <link rel="stylesheet" href="css/file-list.css">
     <link rel="stylesheet" href="css/disclaimer.css">
     <link rel="stylesheet" href="css/performance-panel.css">
+    <link rel="stylesheet" href="css/pwa-install.css">
+    <link rel="stylesheet" href="css/offline-toast.css">
 </head>
 <body>
     <!-- Skip Link para acessibilidade -->
@@ -142,14 +146,22 @@
     <script src="js/progress.js"></script>
     <script src="js/upload-manager.js"></script>
     <script src="js/performance-monitor.js"></script>
+    <script src="js/pwa-manager.js"></script>
     <script src="js/main.js"></script>
-    
+
     <!-- Service Worker Registration -->
     <script>
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('js/service-worker.js')
-                .then(reg => console.log('SW registered:', reg.scope))
-                .catch(err => console.log('SW registration failed:', err));
+                .then(reg => {
+                    console.log('✅ SW registered:', reg.scope);
+
+                    // Verificar updates a cada 1 hora
+                    setInterval(() => {
+                        reg.update();
+                    }, 3600000);
+                })
+                .catch(err => console.log('❌ SW registration failed:', err));
         }
     </script>
 </body>

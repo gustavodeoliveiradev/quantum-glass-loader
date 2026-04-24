@@ -24,16 +24,22 @@ document.addEventListener('DOMContentLoaded', () => {
     Disclaimer.render();
     Disclaimer.init();
 
-    // 7. Performance Monitor (SEMPRE por último, não bloqueia nada)
+    // 7. Performance Monitor
     if (typeof PerformanceMonitor !== 'undefined') {
         try {
             PerformanceMonitor.init();
-            console.log('⚡ Performance Monitor ativo');
         } catch (e) {
             console.warn('PerformanceMonitor indisponível:', e);
         }
-    } else {
-        console.warn('PerformanceMonitor não carregado');
+    }
+
+    // 8. PWA Manager (por último, não bloqueia nada)
+    if (typeof PWAManager !== 'undefined') {
+        try {
+            PWAManager.init();
+        } catch (e) {
+            console.warn('PWAManager indisponível:', e);
+        }
     }
 
     // Event Listeners
@@ -106,5 +112,5 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    console.log('🚀 Quantum Glass Loader - Day 5: Performance & Mobile Ready');
+    console.log('🚀 Quantum Glass Loader - Day 6: PWA Complete!');
 });
