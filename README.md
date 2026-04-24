@@ -3,6 +3,7 @@
 [![Status](https://img.shields.io/badge/status-active-success.svg)]()
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live-blue.svg)](https://gustavodeoliveiradev.github.io/quantum-glass-loader/)
 [![Progress](https://img.shields.io/badge/progress-7%20days%20challenge-orange.svg)]()
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
 > Um loader moderno e interativo com **glassmorphism**, progressão **não-linear** e micro-interações fluidas. Desenvolvido como projeto de 7 dias para aprender boas práticas de frontend modular.
 
@@ -13,6 +14,7 @@
   <img src="https://img.shields.io/badge/upload-real%20%7C%20simulated-ff6b6b" alt="Upload">
   <img src="https://img.shields.io/badge/audio-Web%20Audio%20API-ff9f43" alt="Audio">
   <img src="https://img.shields.io/badge/monitoring-Web%20Vitals-9b59b6" alt="Monitoring">
+  <img src="https://img.shields.io/badge/PWA-installable-00d4ff" alt="PWA">
 </p>
 
 ---
@@ -37,12 +39,12 @@
 - **📤 Upload Real** — Arraste arquivos ou selecione para upload com progresso em bytes
 - **🎵 Áudio Imersivo** — Web Audio API com pitch progressivo, arpeggio de sucesso, e visualizador
 - **⚡ Web Vitals** — Monitoramento em tempo real de FCP, LCP, CLS, TTFB, FID
+- **📱 PWA Completo** — Instalável, funciona offline, com prompt de instalação customizado
 - **🛡️ Segurança** — Disclaimer de privacidade, validação de arquivos, sanitização de dados
 - **🎯 Micro-interações** — Pausar, simular erro, reiniciar com animações suaves
 - **🎉 Partículas** — Explosão de confete ao completar com física realista
 - **⌨️ Acessibilidade** — Navegação por teclado, ARIA labels, `prefers-reduced-motion`, skip links
 - **📱 Responsivo** — Adaptativo para mobile e desktop, sem highlight azul no toque
-- **🔧 PWA** — Service Worker para cache, manifest.json para instalação
 
 ---
 
@@ -61,12 +63,27 @@
 
 ---
 
+## ⚡ Web Vitals — O que significa cada métrica?
+
+| Sigla | Nome | O que mede | Ideal |
+|-------|------|-----------|-------|
+| **FCP** | First Contentful Paint | Quando o primeiro conteúdo aparece | < 1.8s 🟢 |
+| **LCP** | Largest Contentful Paint | Quando o maior elemento carrega | < 2.5s 🟢 |
+| **CLS** | Cumulative Layout Shift | Quanto a tela "pula" durante loading | < 0.1 🟢 |
+| **TTFB** | Time to First Byte | Tempo até o servidor responder | < 800ms 🟢 |
+| **FID** | First Input Delay | Delay até responder ao primeiro clique | < 100ms 🟢 |
+
+> Clique no ⚡ no canto inferior direito para ver as métricas em tempo real!
+
+---
+
 ## 🏗️ Arquitetura Modular
 
 ```
 quantum-loader/
 ├── index.html              # Estrutura semântica + SEO meta tags
 ├── manifest.json           # PWA manifest
+├── LICENSE                 # MIT License
 ├── css/
 │   ├── base.css            # Variáveis de tema, reset, utilitários, mobile fixes
 │   ├── theme-toggle.css    # Switch dark/light animado
@@ -78,7 +95,9 @@ quantum-loader/
 │   ├── upload-zone.css     # Área de drag & drop
 │   ├── file-list.css       # Lista de arquivos
 │   ├── disclaimer.css      # Modal de segurança
-│   └── performance-panel.css # Painel de métricas Web Vitals
+│   ├── performance-panel.css # Painel de métricas Web Vitals
+│   ├── pwa-install.css     # Banner de instalação PWA
+│   └── offline-toast.css   # Notificação de status de rede
 └── js/
     ├── config.js           # Constantes centralizadas
     ├── state.js            # Gerenciamento de estado
@@ -92,6 +111,7 @@ quantum-loader/
     ├── progress.js         # Lógica de animação não-linear
     ├── upload-manager.js   # Gerenciamento de upload
     ├── performance-monitor.js # Monitoramento Web Vitals
+    ├── pwa-manager.js      # Gerenciamento PWA (install, offline, updates)
     ├── service-worker.js   # Cache de assets + offline support
     └── main.js             # Orquestrador
 ```
@@ -120,6 +140,11 @@ quantum-loader/
 2. Veja métricas Web Vitals em tempo real (FCP, LCP, CLS, TTFB, FID)
 3. Cores indicam: 🟢 bom / 🟡 melhorar / 🔴 ruim
 
+### Instalar como App (PWA)
+1. Clique no banner de instalação na parte inferior (quando aparecer)
+2. Ou use o menu do navegador: "Instalar Quantum Glass Loader"
+3. O app funciona **offline** e aparece na tela inicial!
+
 ### Local
 ```bash
 git clone https://github.com/gustavodeoliveiradev/quantum-glass-loader.git
@@ -141,8 +166,8 @@ npx serve .
 | **Dia 2** | Tema Dark/Light toggle + Persistência + Detecção SO | ✅ Completo | `feat: add dark/light theme toggle system` |
 | **Dia 3** | Upload Real com Drag & Drop + Segurança | ✅ Completo | `feat: add real file upload with drag & drop and security disclaimer` |
 | **Dia 4** | Web Audio API + Animações Avançadas | ✅ Completo | `feat: add Web Audio API and advanced animations` |
-| **Dia 5** | Performance + Web Vitals + PWA + Mobile Fixes | ✅ Completo | `feat: add performance monitor with Web Vitals metrics` |
-| **Dia 6** | PWA completo + Offline support + Install prompt | 🔜 Em breve | — |
+| **Dia 5** | Performance + Web Vitals + Mobile Fixes | ✅ Completo | `feat: add performance monitor with Web Vitals metrics` |
+| **Dia 6** | PWA Completo + Offline + Install Prompt + License | ✅ Completo | `feat: add PWA complete support with install prompt and offline mode` |
 | **Dia 7** | Documentação final + Polish + Deploy | 🔜 Em breve | — |
 
 > 🔄 **Atualizações diárias durante a semana!** Cada dia terá um novo commit com features e melhorias.
@@ -159,7 +184,8 @@ npx serve .
 - **XMLHttpRequest** — Upload com monitoramento de progresso real
 - **Web Audio API** — Osciladores, envelopes, analisador de frequência
 - **Performance API** — PerformanceObserver, Web Vitals
-- **Service Worker** — Cache de assets, offline support
+- **Service Worker** — Cache de assets, offline support, background sync
+- **Web App Manifest** — PWA installable, splash screen, theme color
 
 ---
 
@@ -189,7 +215,8 @@ Este projeto foi criado para praticar:
 - ✅ Web Audio API para feedback sonoro
 - ✅ Sincronização áudio-visual em tempo real
 - ✅ Monitoramento de performance (Web Vitals)
-- ✅ Progressive Web App (PWA)
+- ✅ Progressive Web App (PWA) completo
+- ✅ Service Worker com cache e offline
 
 ---
 
@@ -203,7 +230,7 @@ Agradeço ao **App Launcher** pela motivação:
 
 ## 📄 Licença
 
-[MIT License](LICENSE) — sinta-se livre para usar e modificar!
+Este projeto está licenciado sob a [MIT License](LICENSE) — sinta-se livre para usar e modificar!
 
 ---
 
