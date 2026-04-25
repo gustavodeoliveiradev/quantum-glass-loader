@@ -1,0 +1,49 @@
+/* ============================================
+   CURSOR EFFECTS - Cursor customizado com glow
+   ============================================ */
+
+.custom-cursor {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--primary);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.15s ease, opacity 0.3s ease;
+    mix-blend-mode: difference;
+    opacity: 0;
+}
+
+.custom-cursor.active {
+    opacity: 1;
+}
+
+.custom-cursor.hover {
+    transform: scale(1.5);
+    background: rgba(0, 212, 255, 0.1);
+}
+
+.cursor-trail {
+    position: fixed;
+    width: 8px;
+    height: 8px;
+    background: var(--primary);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.cursor-trail.active {
+    opacity: 0.3;
+}
+
+/* Esconder cursor customizado em mobile */
+@media (pointer: coarse) {
+    .custom-cursor,
+    .cursor-trail {
+        display: none !important;
+    }
+}

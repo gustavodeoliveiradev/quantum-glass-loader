@@ -1,0 +1,58 @@
+/* ============================================
+   STATE TRANSITIONS - Transições suaves entre estados
+   ============================================ */
+
+.glass-container {
+    transition: opacity 0.5s var(--ease-smooth),
+                transform 0.5s var(--ease-smooth),
+                box-shadow 0.5s var(--ease-smooth);
+}
+
+.glass-container.state-enter {
+    animation: stateEnter 0.6s var(--ease-smooth) forwards;
+}
+
+.glass-container.state-exit {
+    animation: stateExit 0.4s var(--ease-smooth) forwards;
+}
+
+@keyframes stateEnter {
+    from {
+        opacity: 0;
+        transform: scale(0.95) translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+@keyframes stateExit {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+}
+
+/* Transição entre loader e upload zone */
+.upload-zone,
+.file-list {
+    transition: opacity 0.4s ease, transform 0.4s var(--ease-smooth);
+}
+
+.upload-zone.hidden,
+.file-list.hidden {
+    opacity: 0;
+    transform: translateY(10px);
+    pointer-events: none;
+}
+
+.upload-zone:not(.hidden),
+.file-list:not(.hidden) {
+    opacity: 1;
+    transform: translateY(0);
+}

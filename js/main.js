@@ -1,5 +1,6 @@
 /**
  * MAIN - Orquestrador e inicialização
+ * Quantum Glass Loader - Day 7 (Final)
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -10,36 +11,50 @@ document.addEventListener('DOMContentLoaded', () => {
     ThemeManager.init();
     AnimationEngine.init();
 
-    // 3. Partículas e Progress
+    // 3. Efeitos visuais
+    if (typeof CursorEffects !== 'undefined') {
+        CursorEffects.init();
+    }
+    if (typeof BackgroundParticles !== 'undefined') {
+        BackgroundParticles.init();
+    }
+
+    // 4. Partículas e Progress
     const particles = new ParticleSystem();
+    window.particles = particles; // Global para acesso do celebration
     Progress.init(particles);
 
-    // 4. Upload
+    // 5. Upload
     UploadManager.init();
 
-    // 5. Áudio
+    // 6. Áudio
     AudioEngine.init();
 
-    // 6. Disclaimer
+    // 7. Disclaimer
     Disclaimer.render();
     Disclaimer.init();
 
-    // 7. Performance Monitor
+    // 8. Performance Monitor
     if (typeof PerformanceMonitor !== 'undefined') {
         try {
             PerformanceMonitor.init();
         } catch (e) {
-            console.warn('PerformanceMonitor indisponível:', e);
+            console.warn('PerformanceMonitor indisponível');
         }
     }
 
-    // 8. PWA Manager (por último, não bloqueia nada)
+    // 9. PWA Manager
     if (typeof PWAManager !== 'undefined') {
         try {
             PWAManager.init();
         } catch (e) {
-            console.warn('PWAManager indisponível:', e);
+            console.warn('PWAManager indisponível');
         }
+    }
+
+    // 10. Completion Celebration (por último)
+    if (typeof CompletionCelebration !== 'undefined') {
+        CompletionCelebration.init();
     }
 
     // Event Listeners
@@ -112,5 +127,5 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    console.log('🚀 Quantum Glass Loader - Day 6: PWA Complete!');
+    console.log('🚀 Quantum Glass Loader v1.0 - 7 Days Complete!');
 });

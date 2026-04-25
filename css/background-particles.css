@@ -1,0 +1,43 @@
+/* ============================================
+   BACKGROUND PARTICLES - Partículas flutuantes sutis
+   ============================================ */
+
+.bg-particles {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.bg-particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: var(--primary);
+    border-radius: 50%;
+    opacity: 0.3;
+    animation: float-particle linear infinite;
+}
+
+@keyframes float-particle {
+    0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.3;
+    }
+    90% {
+        opacity: 0.3;
+    }
+    100% {
+        transform: translateY(-100vh) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+/* Tema claro - partículas mais sutis */
+[data-theme="light"] .bg-particle {
+    opacity: 0.15;
+}
